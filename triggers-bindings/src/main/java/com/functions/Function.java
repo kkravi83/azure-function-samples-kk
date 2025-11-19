@@ -6,11 +6,7 @@
 
 package com.functions;
 
-import com.microsoft.azure.functions.ExecutionContext;
-import com.microsoft.azure.functions.HttpMethod;
-import com.microsoft.azure.functions.HttpRequestMessage;
-import com.microsoft.azure.functions.HttpResponseMessage;
-import com.microsoft.azure.functions.HttpStatus;
+import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import com.microsoft.azure.functions.annotation.FixedDelayRetry;
 import com.microsoft.azure.functions.annotation.FunctionName;
@@ -31,12 +27,12 @@ public class Function {
      */
     @FunctionName("HttpExample")
     public HttpResponseMessage run(
-            @HttpTrigger(
-                name = "req",
-                methods = {HttpMethod.GET, HttpMethod.POST},
-                authLevel = AuthorizationLevel.ANONYMOUS)
-                HttpRequestMessage<Optional<String>> request,
-            final ExecutionContext context) {
+        @HttpTrigger(
+            name = "req",
+            methods = {HttpMethod.GET, HttpMethod.POST},
+            authLevel = AuthorizationLevel.ANONYMOUS)
+        HttpRequestMessage<Optional<String>> request,
+        final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
         // Parse query parameter
@@ -63,12 +59,12 @@ public class Function {
             name = "req",
             methods = {HttpMethod.GET, HttpMethod.POST},
             authLevel = AuthorizationLevel.ANONYMOUS)
-            HttpRequestMessage<Optional<String>> request,
+        HttpRequestMessage<Optional<String>> request,
         final ExecutionContext context) throws Exception {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
-        if(count<3) {
-            count ++;
+        if (count < 3) {
+            count++;
             throw new Exception("error");
         }
 
@@ -93,7 +89,7 @@ public class Function {
             name = "req",
             methods = {HttpMethod.GET, HttpMethod.POST},
             authLevel = AuthorizationLevel.ANONYMOUS)
-            HttpRequestMessage<Optional<String>> request,
+        HttpRequestMessage<Optional<String>> request,
         final ExecutionContext context
     ) {
         context.getLogger().info("Java HTTP trigger processed a request.");
@@ -122,13 +118,14 @@ public class Function {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
         File htmlFile = new File("index.html");
-        try{
+        try {
             byte[] fileContent = Files.readAllBytes(htmlFile.toPath());
             return request.createResponseBuilder(HttpStatus.OK).body(fileContent).build();
-        }catch (Exception e){
+        } catch (Exception e) {
             context.getLogger().info("Error reading file.");
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 //Check Commit
+//change for feature 2
 }
